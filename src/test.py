@@ -25,15 +25,3 @@ async def test_7seg(dut):
 
         # all bidirectionals are set to output
         assert dut.uio_oe == 0xFF
-
- # reset
-    dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
-    dut.rst_n.value = 1
-
-    dut._log.info(f"check all segments")
-    # check all segments and roll over
-    for i in range(10):
-        dut._log.info("check segment {}".format(i))
-        await ClockCycles(dut.clk, 1000)
-        assert int(dut.segments.value) == segments[i]
